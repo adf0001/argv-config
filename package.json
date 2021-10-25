@@ -1,0 +1,26 @@
+{
+  "name": "argv-config",
+  "version": "1.0.1",
+  "description": "transfer argv to a config object",
+  "main": "argv-config.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "argv",
+    "config"
+  ],
+  "author": "fwg",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adf0001/argv-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adf0001/argv-config/issues"
+  },
+  "homepage": "https://github.com/adf0001/argv-config#readme"
+}
