@@ -68,6 +68,7 @@
 		catch (ex) {
 			console.log(ex);
 			_ele('divResult').textContent = ex;
+			if( (ex.message || ex)==="disable for browser" ) setOk(name, "disable");
 			return;
 		}
 		_ele('divResult').innerHTML = _dateString19(new Date()).slice(-8) + " / " + _ele('inpName').value + "<br>" + ret;
@@ -123,7 +124,7 @@
 	}
 
 	function setOk(name, fail, reset) {
-		_ele('spCmdList').querySelector("span[name='" + name.replace(/\W/g, "-") + "']").style.background = reset ? "" : (fail ? "red" : "lime");
+		_ele('spCmdList').querySelector("span[name='" + name.replace(/\W/g, "-") + "']").style.background = reset ? "" : ((fail==="disable")?"yellow":(fail ? "red" : "lime"));
 	}
 
 	function doneCallback(ret, setOkName) {

@@ -14,17 +14,17 @@ module.exports = {
 		cfg = argv_config({}, "--a 001 --b bb --config {b:22}".split(" "));	//--config {json-data}
 		assert(JSON.stringify(cfg) === '{"a":"001","b":22}');		//value will be replaced by the later
 
-		if (typeof window === "undefined") {		//skip in htm
-			console.log("run test --config file");
+		done(false);
+	},
 
-			cfg = argv_config({}, "--a 001 --b bb --config ./test-config.json".split(" "), __dirname);	//--config from json file
-			assert(JSON.stringify(cfg) === '{"a":"001","b":22}');
+	"---config file": function (done) {
+		if (typeof window !== "undefined") throw "disable for browser";
 
-			cfg = argv_config({}, "--a 001 --b bb --config ./test-config.js".split(" "), __dirname);	//--config from js module
-			assert(JSON.stringify(cfg) === '{"a":"001","b":22}');
+		var cfg = argv_config({}, "--a 001 --b bb --config ./test-config.json".split(" "), __dirname);	//--config from json file
+		assert(JSON.stringify(cfg) === '{"a":"001","b":22}');
 
-		}
-		else showResult("skip test --config file", 3);
+		cfg = argv_config({}, "--a 001 --b bb --config ./test-config.js".split(" "), __dirname);	//--config from js module
+		assert(JSON.stringify(cfg) === '{"a":"001","b":22}');
 
 		done(false);
 	},
