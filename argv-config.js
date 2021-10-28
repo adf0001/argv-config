@@ -2,17 +2,22 @@
 // argv-config @ npm
 // transfer argv to a config object
 
-module.exports = function (target, argv, workPath) {
+module.exports = function (target, argv, workPath, shortKey) {
 	if (!target) target = {};
 	if (!argv) argv = process.argv;
 	if (!workPath) workPath = process.cwd();
 
 	var i, k, v;
 	for (i = 0; i < argv.length; i++) {
-		if ((k = argv[i]).slice(0, 2) !== "--") continue;
-		k = k.slice(2);
+		if ((k = argv[i]).slice(0, 2) !== "--") {
+			if (!shortKey || !(k in shortKey)) continue;
+			k = shortKey[k];
+		}
+		else {
+			k = k.slice(2);
+		}
 
-		if (!(v = argv[i + 1]) || v.slice(0, 2) === "--") {
+		if (!(v = argv[i + 1]) || v.slice(0, 2) === "--" || (shortKey && (v in shortKey))) {
 			target[k] = null;
 			continue;
 		}

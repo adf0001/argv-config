@@ -14,6 +14,10 @@ module.exports = {
 		cfg = argv_config({}, "--a 001 --b bb --config {b:22}".split(" "));	//--config {json-data}
 		assert(JSON.stringify(cfg) === '{"a":"001","b":22}');		//value will be replaced by the later
 
+		cfg = argv_config({}, "--a 001 --b bb --config {b:22} -c {b:33} -d 44".split(" "), null,
+			{ "-c": "config", "-d": "dd" });	//replace short key with normal key (prefixed with '--')
+		assert(JSON.stringify(cfg) === '{"a":"001","b":33,"dd":"44"}');
+
 		done(false);
 	},
 
