@@ -34,9 +34,16 @@ module.exports = {
 	},
 
 	"file path": function (done) {
+		if (typeof window !== "undefined") throw "disable for browser";
 
-		cfg = argv_config({}, "--a ./aa --b .. --c .cc".split(" "), "pp");		//prefix workPath before "." or "..", when workPath is not empty
+		cfg = argv_config({}, "--a ./aa --b .. --c .cc".split(" "), "pp");		//prefix workPath/cwd before "." or "..", except workPath is `false`.
 		assert(JSON.stringify(cfg) === '{"a":"pp/./aa","b":"pp/..","c":".cc"}');
+
+		cfg = argv_config({}, "--a ./aa --b .. --c .cc".split(" "), false);		//disable path transfer
+		assert(JSON.stringify(cfg) === '{"a":"./aa","b":"..","c":".cc"}');
+
+		cfg = argv_config({}, "--a ./aa".split(" "));		//by process.cwd()
+		assert(JSON.stringify(cfg) === JSON.stringify({ a: process.cwd() + "/./aa" }));
 
 		done(false);
 	},

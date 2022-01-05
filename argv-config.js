@@ -5,7 +5,9 @@
 module.exports = function (target, argv, workPath, shortKey) {
 	if (!target) target = {};
 	if (!argv) argv = process.argv;
-	//if (!workPath) workPath = process.cwd();	//workPath is a flag to prefix the path started with "." or ".."
+
+	//prefix workPath/cwd before "." or "..", except workPath is `false`.
+	if (!workPath && workPath !== false) workPath = process.cwd();
 
 	var i, k, v;
 	for (i = 0; i < argv.length; i++) {

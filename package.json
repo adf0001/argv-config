@@ -1,6 +1,6 @@
 {
   "name": "argv-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "transfer argv to a config object",
   "main": "argv-config.js",
   "scripts": {
