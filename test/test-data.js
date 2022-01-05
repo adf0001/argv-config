@@ -32,6 +32,14 @@ module.exports = {
 
 		done(false);
 	},
+
+	"file path": function (done) {
+
+		cfg = argv_config({}, "--a ./aa --b .. --c .cc".split(" "), "pp");		//prefix workPath before "." or "..", when workPath is not empty
+		assert(JSON.stringify(cfg) === '{"a":"pp/./aa","b":"pp/..","c":".cc"}');
+
+		done(false);
+	},
 };
 
 // for html page

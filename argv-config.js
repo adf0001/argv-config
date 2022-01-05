@@ -5,7 +5,7 @@
 module.exports = function (target, argv, workPath, shortKey) {
 	if (!target) target = {};
 	if (!argv) argv = process.argv;
-	if (!workPath) workPath = process.cwd();
+	//if (!workPath) workPath = process.cwd();	//workPath is a flag to prefix the path started with "." or ".."
 
 	var i, k, v;
 	for (i = 0; i < argv.length; i++) {
@@ -23,7 +23,7 @@ module.exports = function (target, argv, workPath, shortKey) {
 		}
 
 		if (v.charAt(0) == "{" && v.slice(-1) == "}") v = eval("(" + v + ")");	//json string
-		else if (v.charAt(0) === ".") v = workPath + "/" + v;		//file path
+		else if (workPath && v.match(/^\.\.?(\\|\/|$)/)) v = workPath + "/" + v;		//file path
 
 		if (k === "config") Object.assign(target, (typeof v === "string") ? require(v) : v);
 		else target[k] = v;
